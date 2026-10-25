@@ -11,8 +11,20 @@ export const site = {
 };
 
 // NEXT_PUBLIC_BASE_PATH is empty for USERNAME.github.io; /repository-name for project Pages.
+// const prefix = process.env.NEXT_PUBLIC_BASE_PATH || "";
+// export function asset(path: string): string {
+//   return `${prefix}/${path.replace(/^\/+/, "")}`;
+// }
 const prefix = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
 export function asset(path: string): string {
-  return `${prefix}/${path.replace(/^\/+/, "")}`;
+  const normalized = path
+    .replace(/\\/g, "/")
+    .replace(/^\/+/, "")
+    .replace(/^(?:public\/)+/, "");
+
+  return `${prefix}/${normalized}`;
 }
+
 export const emailConfigured = !site.email.startsWith("REPLACE_");
+
